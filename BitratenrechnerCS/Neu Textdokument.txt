@@ -1,0 +1,34 @@
+    'Eingabe von Buchstaben verhindern
+    Private Sub Text_Stunden_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Text_Stunden.KeyPress
+        Call BuchstabenVerhindern(e)
+    End Sub
+
+
+    ' Ist etwas unsauber aber kA wie ich das anders formulieren soll :(
+    Public Function BuchstabenVerhindern(ByVal e As System.Windows.Forms.KeyPressEventArgs) As Object
+        On Error GoTo fehler
+        Dim sKeyStroke As Char
+        Dim sNULL As Char = Chr(0)
+        sKeyStroke = e.KeyChar
+
+        Select Case sKeyStroke
+            Case "0" To "9", vbBack, vbCr
+            Case Else
+                sKeyStroke = sNULL
+        End Select
+
+        If sKeyStroke = sNULL Then
+            e.Handled = True
+        Else
+            e.Handled = False
+        End If
+        GoTo Ende
+
+        ' Bei Fehler tue nichts
+fehler:
+        e.Handled = False
+
+Ende:
+
+    End Function
+    
